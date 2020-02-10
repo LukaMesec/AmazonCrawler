@@ -56,7 +56,9 @@ function extractSellers($, request) {
                           .attr("href")}`
                   )
                 : null;
-        const description = $(this).find("#productDescription");
+        const description = $(this)
+            .find("#productDescription")
+            .text();
         console.log(description);
         let prime = false;
         if ($(this).find("a:contains('Fulfillment by Amazon')").length !== 0) {
