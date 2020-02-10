@@ -78,7 +78,9 @@ Apify.main(async () => {
                             { forefront: true }
                         );
 
-                        console.log($.html());
+                        await Apify.pushData({
+                            html: $.html()
+                        });
                     }
                 } catch (error) {
                     await Apify.pushData({
