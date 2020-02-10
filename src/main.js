@@ -45,106 +45,27 @@ Apify.main(async () => {
         retireInstanceAfterRequestCount: 5,
         handlePageFunction: async ({ $, request }) => {
             const urlOrigin = await getOriginUrl(request);
-            // add pagination and items on the search
-            if (request.userData.label === "page") {
-                // solve pagination if on the page, now support two layouts
-                const enqueuePagination = await parsePaginationUrl($, request);
-                if (enqueuePagination !== false) {
-                    console.log(
-                        `Adding new pagination of search ${enqueuePagination}`
-                    );
-                    await requestQueue.addRequest({
-                        url: enqueuePagination,
-                        userData: {
-                            label: "page",
-                            keyword: request.userData.keyword
-                        }
-                    });
-                }
-                // add items to the queue
-                try {
-                    const items = await parseItemUrls($, request);
-                    for (const item of items) {
-                        console.log(item.detailUrl);
+            const items = await parseItemUrls($, request);
+            for (const item of items) {
+                console.log(item.detailUrl);
 
-                        // await Apify.pushData({
-                        //     productUrl: item.detailUrl
-                        // });
+                // await Apify.pushData({
+                //     productUrl: item.detailUrl
+                // });
 
-                        await requestQueue.addRequest(
-                            {
-                                url: item.url,
-                                userData: {
-                                    label: "seller",
-                                    keyword: request.userData.keyword,
-                                    asin: item.asin,
-                                    detailUrl: item.detailUrl,
-                                    sellerUrl: item.sellerUrl
-                                }
-                            },
-                            { forefront: true }
-                        );
-                    }
-                } catch (error) {
-                    await Apify.pushData({
-                        status: "No items for this keyword.",
-                        url: request.url,
-                        keyword: request.userData.keyword
-                    });
-                }
-                // extract info about item and about seller offers
-            } else if (request.userData.label === "seller") {
-                try {
-                    const item = await parseSellerDetail($, request);
-                    if (item) {
-                        let paginationUrlSeller;
-                        const paginationEle = $("ul.a-pagination li.a-last a");
-                        console.log($("#productTitle"));
-                        if (paginationEle.length !== 0) {
-                            paginationUrlSeller =
-                                urlOrigin + paginationEle.attr("href");
-                        } else {
-                            paginationUrlSeller = false;
-                        }
-
-                        // if there is a pagination, go to another page
-                        if (paginationUrlSeller !== false) {
-                            console.log(
-                                `Seller detail has pagination, crawling that now -> ${paginationUrlSeller}`
-                            );
-                            await requestQueue.addRequest(
-                                {
-                                    url: paginationUrlSeller,
-                                    userData: {
-                                        label: "seller",
-                                        keyword: request.userData.keyword,
-                                        sellers: item.sellers
-                                    }
-                                },
-                                { forefront: true }
-                            );
-                        } else {
-                            console.log(`Saving item url: ${request.url}`);
-                            await saveItem(
-                                "RESULT",
-                                request,
-                                item,
-                                input,
-                                env.defaultDatasetId
-                            );
-                            // await Apify.pushData(item);
-                        }
-                    }
-                } catch (error) {
-                    console.error(error);
-                    await saveItem(
-                        "NORESULT",
-                        request,
-                        null,
-                        input,
-                        env.defaultDatasetId
-                    );
-                }
+                // await requestQueue.addRequest(
+                //     {
+                //         url: item.url,
+                //         userData: {
+                //             label: "seller",
+                //             keyword: request.userData.keyword,
+                //             asin: item.asin,
+                //             detailUrl: item.detailUrl,
+                //             sellerUrl: item.sellerUrl
+                //         }
+                //     },
+                //     { forefront: true }
+                // );
             }
         },
 
