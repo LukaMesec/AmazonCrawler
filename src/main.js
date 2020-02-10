@@ -45,27 +45,54 @@ Apify.main(async () => {
         retireInstanceAfterRequestCount: 5,
         handlePageFunction: async ({ $, request }) => {
             const urlOrigin = await getOriginUrl(request);
-            const items = await parseItemUrls($, request);
-            for (const item of items) {
-                console.log(item.detailUrl);
+            // add pagination and items on the search
+            if (request.userData.label === "page") {
+                // solve pagination if on the page, now support two layouts
+                const enqueuePagination = await parsePaginationUrl($, request);
+                if (enqueuePagination !== false) {
+                    console.log(
+                        `Adding new pagination of search ${enqueuePagination}`
+                    );
+                    await requestQueue.addRequest({
+                        url: enqueuePagination,
+                        userData: {
+                            label: "page",
+                            keyword: request.userData.keyword
+                        }
+                    });
+                }
+                // add items to the queue
+                try {
+                    const items = await parseItemUrls($, request);
+                    for (const item of items) {
+                        console.log(item.detailUrl);
 
-                // await Apify.pushData({
-                //     productUrl: item.detailUrl
-                // });
+                        // await Apify.pushData({
+                        //     productUrl: item.detailUrl
+                        // });
 
-                // await requestQueue.addRequest(
-                //     {
-                //         url: item.url,
-                //         userData: {
-                //             label: "seller",
-                //             keyword: request.userData.keyword,
-                //             asin: item.asin,
-                //             detailUrl: item.detailUrl,
-                //             sellerUrl: item.sellerUrl
-                //         }
-                //     },
-                //     { forefront: true }
-                // );
+                        // await requestQueue.addRequest(
+                        //     {
+                        //         url: item.url,
+                        //         userData: {
+                        //             label: "seller",
+                        //             keyword: request.userData.keyword,
+                        //             asin: item.asin,
+                        //             detailUrl: item.detailUrl,
+                        //             sellerUrl: item.sellerUrl
+                        //         }
+                        //     },
+                        //     { forefront: true }
+                        // );
+                    }
+                } catch (error) {
+                    await Apify.pushData({
+                        status: "No items for this keyword.",
+                        url: request.url,
+                        keyword: request.userData.keyword
+                    });
+                }
+                // extract info about item and about seller offers
             }
         },
 
