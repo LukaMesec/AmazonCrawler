@@ -1,0 +1,65 @@
+{
+  "title": "Amazon crawler",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "country": {
+      "title": "Amazon market",
+      "type": "string",
+      "description": "Select your Amazon domain",
+      "editor": "select",
+      "default": "US",
+      "enum": [
+        "US",
+        "UK",
+        "DE",
+        "ES",
+        "FR",
+        "IT",
+        "IN",
+        "CA"
+      ],
+      "enumTitles": ["amazon.com",
+        "amazon.co.uk",
+        "amazon.de",
+        "amazon.es",
+        "amazon.fr",
+        "amazon.it",
+        "amazon.in",
+        "amazon.ca"]
+    },
+
+    "keywords": {
+      "title": "Keywords to search",
+      "type": "array",
+      "description": "Keywords you would like to extract from Amazon",
+      "prefill": ["Iphone X", "Samsung monitor 27 QHD"],
+      "editor": "json"
+    },
+    "asins": {
+      "title": "ASINs to extract",
+      "type": "array",
+      "description": "Array of ASINs objects to extract, read description of the actor to understand this.",
+      "prefill": [{
+          "asin":"B07HBC3CNF",
+          "countries":["de","it"]
+      }],
+      "editor": "json"
+    },
+    "maxResults": {
+      "title": "Number of results",
+      "type": "integer",
+      "description": "Number of results you would like to save in total.",
+      "default": 0,
+      "editor": "number"
+    },
+    "liveView": {
+      "title": "LiveView",
+      "type": "boolean",
+      "description": "If you choose this option it will enable you to view what is happening in the crawler, but it will slow down the actor.",
+      "default": true,
+      "groupCaption": "Options",
+      "groupDescription": "If you choose this option it will enable you to view what is happening in the crawler, but it will slow down the actor."
+    }
+  }
+}
