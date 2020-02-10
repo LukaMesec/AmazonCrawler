@@ -1,15 +1,18 @@
 /* global $ */
-const parsePrice = require('parse-price');
-const queryString = require('query-string');
-const parseUrl = require('url-parse');
-const { getCurrency } = require('./utils.js');
+const parsePrice = require("parse-price");
+const queryString = require("query-string");
+const parseUrl = require("url-parse");
+const { getCurrency } = require("./utils.js");
 
 function extractInfo($) {
-    const h1 = $('h1');
-    const images = $('div#olpProductImage img');
+    const h1 = $("h1");
+    const images = $("div#olpProductImage img");
     return {
         title: h1.length !== 0 ? h1.text().trim() : null,
-        image: images.length !== 0 ? images.attr('src').replace('_SS160_.', '') : null,
+        image:
+            images.length !== 0
+                ? images.attr("src").replace("_SS160_.", "")
+                : null
     };
 }
 function buildSellerUrl(url) {
@@ -20,48 +23,78 @@ function buildSellerUrl(url) {
 function extractSellers($, request) {
     const sellers = [];
     const hostName = parseUrl(request.url).hostname;
-    $('div.olpOffer').each(function () {
-        const priceElem = $(this).find('span.olpOfferPrice');
-        const sellerNameEle = $(this).find('h3.olpSellerName img');
-        let price; let
-            priceParsed = null;
+    $("div.olpOffer").each(function() {
+        const priceElem = $(this).find("span.olpOfferPrice");
+        const sellerNameEle = $(this).find("h3.olpSellerName img");
+        let price;
+        let priceParsed = null;
         if (priceElem.length !== 0) {
-            price = priceElem.text().trim().replace('Rs.', 'Rs');
+            price = priceElem
+                .text()
+                .trim()
+                .replace("Rs.", "Rs");
             priceParsed = parsePrice(price);
         } else {
-            price = 'price not displayed';
+            price = "price not displayed";
         }
         let shippingInfo;
         let condition;
-        const sellerName = sellerNameEle.length !== 0 ? sellerNameEle.attr('alt') : $(this).find('h3.olpSellerName').text().trim();
-        const sellerShopUrl = sellerNameEle.length !== 0 ? hostName : ($(this).find('h3.olpSellerName a').length !== 0 ? buildSellerUrl(`${hostName}${$(this).find('h3.olpSellerName a').attr('href')}`) : null);
-
+        const sellerName =
+            sellerNameEle.length !== 0
+                ? sellerNameEle.attr("alt")
+                : $(this)
+                      .find("h3.olpSellerName")
+                      .text()
+                      .trim();
+        const sellerShopUrl =
+            sellerNameEle.length !== 0
+                ? hostName
+                : $(this).find("h3.olpSellerName a").length !== 0
+                ? buildSellerUrl(
+                      `${hostName}${$(this)
+                          .find("h3.olpSellerName a")
+                          .attr("href")}`
+                  )
+                : null;
+        const description = $(this).find("#productDescription");
+        console.log(description);
         let prime = false;
         if ($(this).find("a:contains('Fulfillment by Amazon')").length !== 0) {
             prime = true;
-        } else if ($(this).find('i.a-icon-prime').length !== 0) {
+        } else if ($(this).find("i.a-icon-prime").length !== 0) {
             prime = true;
-        } else if (sellerName === 'Amazon.com') {
+        } else if (sellerName === "Amazon.com") {
             prime = true;
         }
-        const offerConditionEle = $(this).find('div#offerCondition');
-        const olpConditionEle = $(this).find('span.olpCondition');
+        const offerConditionEle = $(this).find("div#offerCondition");
+        const olpConditionEle = $(this).find("span.olpCondition");
 
         if (offerConditionEle.length !== 0) {
-            condition = offerConditionEle.text().replace(/\s\s+/g, ' ').trim();
+            condition = offerConditionEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
         } else if (olpConditionEle.length !== 0) {
-            condition = olpConditionEle.text().replace(/\s\s+/g, ' ').trim();
+            condition = olpConditionEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
         } else {
-            condition = 'condition unknown';
+            condition = "condition unknown";
         }
 
-        const olpShippingInfoEle = $(this).find('p.olpShippingInfo ');
+        const olpShippingInfoEle = $(this).find("p.olpShippingInfo ");
         if (olpShippingInfoEle.length !== 0) {
-            shippingInfo = olpShippingInfoEle.text().replace(/\s\s+/g, ' ').trim();
-        } else if ($("div.olpPriceColumn:contains('FREE Shipping')").length !== 0) {
-            shippingInfo = '& eligible for FREE Shipping';
+            shippingInfo = olpShippingInfoEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
+        } else if (
+            $("div.olpPriceColumn:contains('FREE Shipping')").length !== 0
+        ) {
+            shippingInfo = "& eligible for FREE Shipping";
         } else {
-            shippingInfo = 'shipping info not included';
+            shippingInfo = "shipping info not included";
         }
 
         sellers.push({
@@ -71,12 +104,11 @@ function extractSellers($, request) {
             sellerName,
             prime,
             shippingInfo,
-            shopUrl: sellerShopUrl,
+            shopUrl: sellerShopUrl
         });
     });
     return sellers;
 }
-
 
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
@@ -98,7 +130,7 @@ async function parseSellerDetail($, request) {
     item.country = country;
     item.currency = currency;
     if (item.title === null) {
-        item.status = 'This ASIN is not available for this country.';
+        item.status = "This ASIN is not available for this country.";
     }
     return item;
 }
