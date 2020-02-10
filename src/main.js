@@ -67,19 +67,23 @@ Apify.main(async () => {
                     for (const item of items) {
                         console.log(item.detailUrl);
 
-                        await Apify.pushData({
-                            productUrl: item.detailUrl
-                        });
-                        // await requestQueue.addRequest({
-                        //     url: item.url,
-                        //     userData: {
-                        //         label: 'seller',
-                        //         keyword: request.userData.keyword,
-                        //         asin: item.asin,
-                        //         detailUrl: item.detailUrl,
-                        //         sellerUrl: item.sellerUrl,
-                        //     },
-                        // }, { forefront: true });
+                        // await Apify.pushData({
+                        //     productUrl: item.detailUrl
+                        // });
+
+                        await requestQueue.addRequest(
+                            {
+                                url: item.url,
+                                userData: {
+                                    label: "seller",
+                                    keyword: request.userData.keyword,
+                                    asin: item.asin,
+                                    detailUrl: item.detailUrl,
+                                    sellerUrl: item.sellerUrl
+                                }
+                            },
+                            { forefront: true }
+                        );
                     }
                 } catch (error) {
                     await Apify.pushData({
@@ -95,6 +99,7 @@ Apify.main(async () => {
                     if (item) {
                         let paginationUrlSeller;
                         const paginationEle = $("ul.a-pagination li.a-last a");
+                        console.log($("#productTitle"));
                         if (paginationEle.length !== 0) {
                             paginationUrlSeller =
                                 urlOrigin + paginationEle.attr("href");
