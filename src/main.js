@@ -77,9 +77,9 @@ Apify.main(async () => {
                             },
                             { forefront: true }
                         );
-
+                        const title = $("#productTitle");
                         await Apify.pushData({
-                            html: $.html()
+                            title: title
                         });
                     }
                 } catch (error) {
