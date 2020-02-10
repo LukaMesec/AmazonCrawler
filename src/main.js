@@ -68,8 +68,7 @@ Apify.main(async () => {
                         console.log(item.detailUrl);
 
                         await Apify.pushData({
-                            productUrl: item.detailUrl,
-                            title: title
+                            productUrl: item.detailUrl
                         });
                         // await requestQueue.addRequest({
                         //     url: item.url,
