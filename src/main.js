@@ -71,19 +71,14 @@ Apify.main(async () => {
                         //     productUrl: item.detailUrl
                         // });
 
-                        // await requestQueue.addRequest(
-                        //     {
-                        //         url: item.url,
-                        //         userData: {
-                        //             label: "seller",
-                        //             keyword: request.userData.keyword,
-                        //             asin: item.asin,
-                        //             detailUrl: item.detailUrl,
-                        //             sellerUrl: item.sellerUrl
-                        //         }
-                        //     },
-                        //     { forefront: true }
-                        // );
+                        await requestQueue.addRequest(
+                            {
+                                url: item.detailUrl
+                            },
+                            { forefront: true }
+                        );
+
+                        console.log($.html());
                     }
                 } catch (error) {
                     await Apify.pushData({
