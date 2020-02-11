@@ -7,12 +7,18 @@ const { getCurrency } = require("./utils.js");
 function extractInfo($) {
     const description = $("div#productDescription")
         .text()
-        .replace(/\r?\n|\r/g, "");
-    console.log(description);
+        .replace(/\r?\n|\r/g, "")
+        .replace("\t", "");
+    const title = $("span#productTitle")
+        .text()
+        .replace(/\r?\n|\r/g, "")
+        .replace("\t", "");
+    console.log(description, title);
     // const h1 = $("h1");
     // const images = $("div#olpProductImage img");
     return {
-        description
+        description,
+        title
         // title: h1.length !== 0 ? h1.text().trim() : null,
         // image:
         //     images.length !== 0
