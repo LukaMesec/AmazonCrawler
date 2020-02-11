@@ -145,7 +145,7 @@ async function parseSellerDetail($, request) {
     // if (item.title === null) {
     //     item.status = "This ASIN is not available for this country.";
     // }
-    return { item };
+    return item;
 }
 
 module.exports = parseSellerDetail;
