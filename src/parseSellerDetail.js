@@ -13,11 +13,14 @@ function extractInfo($) {
     ).trim();
     const title = String($("span#productTitle").text()).trim();
 
-    const price = $("span.a-color-price")
-        .first()
-        .text()
-        .replace(/\r?\n|\r/g, "");
-    console.log(price);
+    const price = String(
+        $("span.a-color-price")
+            .first()
+            .text()
+            .replace(/\r?\n|\r/g, "")
+    ).trim();
+    const picUrl = $("img.fullscreen").attr("src");
+    console.log(picUrl);
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
     // const h1 = $("h1");
