@@ -9,8 +9,9 @@ function extractInfo($) {
         $("div#productDescription")
             .text()
             .replace(/\r?\n|\r/g, "")
-            .replace("\t", "")
-    ).trim();
+    )
+        .trim()
+        .replace("\t", "");
     const title = String($("span#productTitle").text()).trim();
 
     const price = String(
