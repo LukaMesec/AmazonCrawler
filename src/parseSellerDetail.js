@@ -11,7 +11,7 @@ function extractInfo($) {
             .replace(/\r?\n|\r/g, "")
     )
         .trim()
-        .replace("\t", "");
+        .replace(/\t/g, "");
     const title = String($("span#productTitle").text()).trim();
 
     const price = String(
@@ -20,7 +20,7 @@ function extractInfo($) {
             .text()
             .replace(/\r?\n|\r/g, "")
     ).trim();
-    const picUrl = $("img.fullscreen").attr("src");
+    const picUrl = $("img.fullscreen").html();
     console.log(picUrl);
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
