@@ -20,15 +20,11 @@ function extractInfo($) {
             .text()
             .replace(/\r?\n|\r/g, "")
     ).trim();
-    const picUrl = $("li.a-align-center sims-fbt-image-1");
+    // const picUrl = $("li.a-align-center sims-fbt-image-1");
 
     // const technicalDetails = $("div.attrG").text()
-    const itemWeight = $("tr.size-weight")
-        .text()
-        .trim();
-    const modelNumber = $("tr.item-model-number")
-        .text()
-        .trim();
+    const itemWeight = $("tr.size-weight").text();
+    const modelNumber = $("tr.item-model-number").text();
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
     // const h1 = $("h1");
@@ -37,7 +33,6 @@ function extractInfo($) {
         title,
         price,
         description,
-        picUrl,
         itemWeight,
         modelNumber
         // title: h1.length !== 0 ? h1.text().trim() : null,
