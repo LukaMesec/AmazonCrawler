@@ -4,7 +4,7 @@ const queryString = require("query-string");
 const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 
-function extractInfo($, request) {
+function extractInfo($) {
     const description = $("div#productDescription")
         .text()
         .replace(/\r?\n|\r/g, "")
@@ -13,15 +13,13 @@ function extractInfo($, request) {
         .text()
         .replace(/\r?\n|\r/g, "")
         .replace("\t", "");
-    const productUrl = request.url;
     // const productImg=$("div#ivLargeImage")
     console.log(description, title);
     // const h1 = $("h1");
     // const images = $("div#olpProductImage img");
     return {
         description,
-        title,
-        productUrl
+        title
 
         // title: h1.length !== 0 ? h1.text().trim() : null,
         // image:
