@@ -29,7 +29,6 @@ function extractInfo($) {
     const modelNumber = $("tr.item-model-number")
         .text()
         .trim();
-    console.log(picUrl, technicalDetails);
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
     // const h1 = $("h1");
