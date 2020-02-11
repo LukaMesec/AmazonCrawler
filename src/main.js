@@ -71,6 +71,7 @@ Apify.main(async () => {
                         //     productUrl: item.detailUrl,
                         //     title: title
                         // });
+                        console.log(item.url);
                         await requestQueue.addRequest(
                             {
                                 url: item.detailUrl,
