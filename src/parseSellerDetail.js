@@ -9,13 +9,13 @@ function extractInfo($) {
         .text()
         .replace(/\r?\n|\r/g, "")
         .replace("\t", "");
-    const title = $("span#productTitle")
-        .text()
+    const title = String($("span#productTitle").text())
         .replace(/\r?\n|\r/g, "")
         .replace("\t", "");
     const price = $("span.a-color-price")
         .first()
-        .text();
+        .text()
+        .replace(/\r?\n|\r/g, "");
     console.log(price);
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
