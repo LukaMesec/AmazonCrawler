@@ -13,6 +13,7 @@ function extractInfo($) {
         .text()
         .replace(/\r?\n|\r/g, "")
         .replace("\t", "");
+    // const productImg=$("div#ivLargeImage")
     console.log(description, title);
     // const h1 = $("h1");
     // const images = $("div#olpProductImage img");
