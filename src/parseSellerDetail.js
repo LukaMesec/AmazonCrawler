@@ -20,7 +20,7 @@ function extractInfo($) {
             .text()
             .replace(/\r?\n|\r/g, "")
     ).trim();
-    const picUrl = $("div#ivLargeImage");
+    const picUrl = $("div#ivLargeImage").html();
     console.log(picUrl);
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
