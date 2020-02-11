@@ -5,8 +5,14 @@ const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 
 function extractInfo($) {
-    const description = String($("div#productDescription").text()).trim();
+    const description = String(
+        $("div#productDescription")
+            .text()
+            .replace(/\r?\n|\r/g, "")
+            .replace("\t", "")
+    ).trim();
     const title = String($("span#productTitle").text()).trim();
+
     const price = $("span.a-color-price")
         .first()
         .text()
