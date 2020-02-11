@@ -5,7 +5,7 @@ const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 
 function extractInfo($) {
-    console.log($(html));
+    console.log($().text());
     // const h1 = $("h1");
     // const images = $("div#olpProductImage img");
     return {
