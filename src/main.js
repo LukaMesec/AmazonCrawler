@@ -73,7 +73,7 @@ Apify.main(async () => {
                         // });
                         await requestQueue.addRequest(
                             {
-                                url: item.url
+                                url: item.detailUrl
                                 // userData: {
                                 //     label: "seller",
                                 //     keyword: request.userData.keyword,
