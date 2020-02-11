@@ -5,13 +5,8 @@ const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 
 function extractInfo($) {
-    const description = $("div#productDescription")
-        .text()
-        .replace(/\r?\n|\r/g, "")
-        .replace("\t", "");
-    const title = String($("span#productTitle").text())
-        .replace(/\r?\n|\r/g, "")
-        .replace("\t", "");
+    const description = String($("div#productDescription").text()).trim();
+    const title = String($("span#productTitle").text()).trim();
     const price = $("span.a-color-price")
         .first()
         .text()
@@ -22,9 +17,9 @@ function extractInfo($) {
     // const h1 = $("h1");
     // const images = $("div#olpProductImage img");
     return {
-        description,
         title,
-        price
+        price,
+        description
 
         // title: h1.length !== 0 ? h1.text().trim() : null,
         // image:
