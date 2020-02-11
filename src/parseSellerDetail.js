@@ -23,8 +23,15 @@ function extractInfo($) {
     // const picUrl = $("li.a-align-center sims-fbt-image-1");
 
     // const technicalDetails = $("div.attrG").text()
-    const itemWeight = $("tr.size-weight").text();
-    const modelNumber = $("tr.item-model-number").text();
+    const itemWeight = $("tr.size-weight")
+        .text()
+        .match(/[0-9]\d+/g);
+    const itemDimensions = $("tr.size-weight")
+        .text()
+        .match(/[0,2](.*?)cm/g);
+    const modelNumber = $("tr.item-model-number")
+        .text()
+        .replace(/[A-z]+/g, "");
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
     // const h1 = $("h1");
@@ -34,6 +41,7 @@ function extractInfo($) {
         price,
         description,
         itemWeight,
+        itemDimensions,
         modelNumber
         // title: h1.length !== 0 ? h1.text().trim() : null,
         // image:
