@@ -13,13 +13,18 @@ function extractInfo($) {
         .text()
         .replace(/\r?\n|\r/g, "")
         .replace("\t", "");
+    const price = $("span.a-color-price")
+        .first()
+        .text();
+    console.log(price);
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
     // const h1 = $("h1");
     // const images = $("div#olpProductImage img");
     return {
         description,
-        title
+        title,
+        price
 
         // title: h1.length !== 0 ? h1.text().trim() : null,
         // image:

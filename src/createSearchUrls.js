@@ -48,7 +48,7 @@ async function createSearchUrls(input) {
     return input.keywords.map(keyword => ({
         url: `${searchUrlBase}s?k=${keyword
             .replace(/\\s/g, "+")
-            .trim()}&rh=p_76%3A419122031`,
+            .trim()}&rh=p_76%3A419122031`, //&rh=p_76%3A419122031 means searching only PRIME products
         userData: {
             label: "page",
             keyword
