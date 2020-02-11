@@ -65,22 +65,21 @@ Apify.main(async () => {
                 try {
                     const items = await parseItemUrls($, request);
                     for (const item of items) {
-                        console.log(item);
-
-                        await Apify.pushData({
-                            productUrl: item.detailUrl
-                        });
-
-                        // await requestQueue.addRequest(
-                        //     {
-                        //         url: item.detailUrl
-                        //     },
-                        //     { forefront: true }
-                        // );
-                        const title = $("#productTitle");
-                        await Apify.pushData({
-                            title: title
-                        });
+                        await requestQueue.addRequest(
+                            {
+                                url: item.url,
+                                userData: {
+                                    label: "seller",
+                                    keyword: request.userData.keyword,
+                                    asin: item.asin,
+                                    detailUrl: item.detailUrl,
+                                    sellerUrl: item.sellerUrl
+                                }
+                            },
+                            {
+                                forefront: true
+                            }
+                        );
                     }
                 } catch (error) {
                     await Apify.pushData({
@@ -91,6 +90,14 @@ Apify.main(async () => {
                 }
                 // extract info about item and about seller offers
             }
+
+            const item = await parseSellerDetail($, request);
+
+            Apify.pushData({
+                item
+            });
+
+            // if there is a pagination, go to another page
         },
 
         // If request failed 4 times then this function is executed.
