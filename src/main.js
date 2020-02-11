@@ -97,9 +97,8 @@ Apify.main(async () => {
 
             try {
                 const item = await parseSellerDetail($, request);
-                const itemUrl = item.detailUrl;
-                console.log(itemUrl);
-                Apify.pushData({ item, itemurl: itemUrl });
+                console.log(request);
+                Apify.pushData({ item, request });
             } catch (error) {
                 console.error(error);
                 await saveItem(
