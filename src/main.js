@@ -73,7 +73,7 @@ Apify.main(async () => {
                         // });
                         await requestQueue.addRequest(
                             {
-                                url: item.detailUrl
+                                url: item.url
                                 // userData: {
                                 //     label: "seller",
                                 //     keyword: request.userData.keyword,
@@ -93,57 +93,20 @@ Apify.main(async () => {
                     });
                 }
                 // extract info about item and about seller offers
-            } else if (request.userData.label === "seller") {
-                try {
-                    const item = await parseSellerDetail($, request);
-                    if (item) {
-                        let paginationUrlSeller;
-                        const paginationEle = $("ul.a-pagination li.a-last a");
-                        if (paginationEle.length !== 0) {
-                            paginationUrlSeller =
-                                urlOrigin + paginationEle.attr("href");
-                        } else {
-                            paginationUrlSeller = false;
-                        }
+            }
 
-                        // if there is a pagination, go to another page
-                        if (paginationUrlSeller !== false) {
-                            console.log(
-                                `Seller detail has pagination, crawling that now -> ${paginationUrlSeller}`
-                            );
-                            await requestQueue.addRequest(
-                                {
-                                    url: paginationUrlSeller,
-                                    userData: {
-                                        label: "seller",
-                                        keyword: request.userData.keyword,
-                                        sellers: item.sellers
-                                    }
-                                },
-                                { forefront: true }
-                            );
-                        } else {
-                            console.log(`Saving item url: ${request.url}`);
-                            await saveItem(
-                                "RESULT",
-                                request,
-                                item,
-                                input,
-                                env.defaultDatasetId
-                            );
-                            // await Apify.pushData(item);
-                        }
-                    }
-                } catch (error) {
-                    console.error(error);
-                    await saveItem(
-                        "NORESULT",
-                        request,
-                        null,
-                        input,
-                        env.defaultDatasetId
-                    );
-                }
+            try {
+                const item = await parseSellerDetail($, request);
+                Apify.pushData({ item });
+            } catch (error) {
+                console.error(error);
+                await saveItem(
+                    "NORESULT",
+                    request,
+                    null,
+                    input,
+                    env.defaultDatasetId
+                );
             }
         },
 
