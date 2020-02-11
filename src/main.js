@@ -65,18 +65,18 @@ Apify.main(async () => {
                 try {
                     const items = await parseItemUrls($, request);
                     for (const item of items) {
-                        console.log(item.detailUrl);
+                        console.log(item);
 
-                        // await Apify.pushData({
-                        //     productUrl: item.detailUrl
-                        // });
+                        await Apify.pushData({
+                            productUrl: item.detailUrl
+                        });
 
-                        await requestQueue.addRequest(
-                            {
-                                url: item.detailUrl
-                            },
-                            { forefront: true }
-                        );
+                        // await requestQueue.addRequest(
+                        //     {
+                        //         url: item.detailUrl
+                        //     },
+                        //     { forefront: true }
+                        // );
                         const title = $("#productTitle");
                         await Apify.pushData({
                             title: title
