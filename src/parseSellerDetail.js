@@ -127,6 +127,7 @@ function extractInfo($) {
 async function parseSellerDetail($, request) {
     // const sellers = await extractSellers($, request);
     const item = await extractInfo($);
+    const productUrl = request.url;
 
     // const currency = await getCurrency(request);
     // console.log(item);
@@ -145,7 +146,7 @@ async function parseSellerDetail($, request) {
     // if (item.title === null) {
     //     item.status = "This ASIN is not available for this country.";
     // }
-    return item;
+    return { item, productUrl };
 }
 
 module.exports = parseSellerDetail;
