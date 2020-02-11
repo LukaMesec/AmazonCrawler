@@ -71,11 +71,11 @@ Apify.main(async () => {
                         //     productUrl: item.detailUrl,
                         //     title: title
                         // });
-                        console.log(item.url);
+                        // console.log(item.url);
                         await requestQueue.addRequest(
                             {
-                                url: item.detailUrl,
-                                url1: item.url
+                                url: item.detailUrl
+                                // url1: item.url
                                 // userData: {
                                 //     label: "seller",
                                 //     keyword: request.userData.keyword,
@@ -99,6 +99,8 @@ Apify.main(async () => {
 
             try {
                 const item = await parseSellerDetail($, request);
+                // const moreData=await parseSellerDetail($, request.url1);
+                console.log(request.url1);
                 Apify.pushData({ item });
             } catch (error) {
                 console.error(error);
