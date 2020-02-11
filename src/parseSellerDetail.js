@@ -23,9 +23,9 @@ function extractInfo($) {
     // const picUrl = $("li.a-align-center sims-fbt-image-1");
 
     // const technicalDetails = $("div.attrG").text()
-    const itemWeight = String($("tr.size-weight").text())
-        .replace(/[0-9]{2,}/g, " " + /[0-9]{2,}/g)
-        .replace(/[A-Z]/g, " " + /[A-Z]/g);
+    const itemWeight = $("tr.size-weight").text();
+    // .replace(/[0-9]{2,}/g, " " + /[0-9]{2,}/g)
+    // .replace(/[A-Z]/g, " " + /[A-Z]/g);
     const modelNumber = $("tr.item-model-number")
         .text()
         .replace(/[A-z]+/g);
