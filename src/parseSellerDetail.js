@@ -26,9 +26,7 @@ function extractInfo($) {
     const itemWeight = $("tr.size-weight")
         .first()
         .text();
-    const itemDimensions = $("tr.size-weight")
-        .eq(2)
-        .text();
+    const itemDimensions = $("tr.size-weight:nth-of-type(2)").text();
 
     // .replace(/[0-9]{2,}/g, " " + /[0-9]{2,}/g)
     // .replace(/[A-Z]/g, " " + /[A-Z]/g);
