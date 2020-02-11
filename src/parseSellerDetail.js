@@ -25,8 +25,11 @@ function extractInfo($) {
     // const technicalDetails = $("div.attrG").text()
     const itemWeight = $("tr.size-weight")
         .first()
-        .text();
-    const itemDimensions = $("tr.size-weight:nth-of-type(2)").text();
+        .text()
+        .replace(/\w{3}/g, "");
+    const itemDimensions = $("tr.size-weight:nth-of-type(2)")
+        .text()
+        .replace(/\w{3}/g, "");
 
     // .replace(/[0-9]{2,}/g, " " + /[0-9]{2,}/g)
     // .replace(/[A-Z]/g, " " + /[A-Z]/g);
