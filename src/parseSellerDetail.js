@@ -21,13 +21,93 @@ function buildSellerUrl(url) {
     return `${parsedUrl.url}/?seller=${parsedUrl.query.seller}`;
 }
 
-function extractSellers($) {
+function extractSellers($, request) {
     const sellers = [];
-    const title = $("#productTitle");
-    sellers.push({
-        title
-    });
+    const hostName = parseUrl(request.url).hostname;
+    $("div.olpOffer").each(function() {
+        const priceElem = $(this).find("span.olpOfferPrice");
+        const sellerNameEle = $(this).find("h3.olpSellerName img");
+        let price;
+        let priceParsed = null;
+        if (priceElem.length !== 0) {
+            price = priceElem
+                .text()
+                .trim()
+                .replace("Rs.", "Rs");
+            priceParsed = parsePrice(price);
+        } else {
+            price = "price not displayed";
+        }
+        let shippingInfo;
+        let condition;
+        const sellerName =
+            sellerNameEle.length !== 0
+                ? sellerNameEle.attr("alt")
+                : $(this)
+                      .find("h3.olpSellerName")
+                      .text()
+                      .trim();
+        const sellerShopUrl =
+            sellerNameEle.length !== 0
+                ? hostName
+                : $(this).find("h3.olpSellerName a").length !== 0
+                ? buildSellerUrl(
+                      `${hostName}${$(this)
+                          .find("h3.olpSellerName a")
+                          .attr("href")}`
+                  )
+                : null;
+        // const description = $(this).find("#productDescription").text();
+        console.log(description);
+        let prime = false;
+        if ($(this).find("a:contains('Fulfillment by Amazon')").length !== 0) {
+            prime = true;
+        } else if ($(this).find("i.a-icon-prime").length !== 0) {
+            prime = true;
+        } else if (sellerName === "Amazon.com") {
+            prime = true;
+        }
+        const offerConditionEle = $(this).find("div#offerCondition");
+        const olpConditionEle = $(this).find("span.olpCondition");
 
+        if (offerConditionEle.length !== 0) {
+            condition = offerConditionEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
+        } else if (olpConditionEle.length !== 0) {
+            condition = olpConditionEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
+        } else {
+            condition = "condition unknown";
+        }
+
+        const olpShippingInfoEle = $(this).find("p.olpShippingInfo ");
+        if (olpShippingInfoEle.length !== 0) {
+            shippingInfo = olpShippingInfoEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
+        } else if (
+            $("div.olpPriceColumn:contains('FREE Shipping')").length !== 0
+        ) {
+            shippingInfo = "& eligible for FREE Shipping";
+        } else {
+            shippingInfo = "shipping info not included";
+        }
+
+        sellers.push({
+            price,
+            priceParsed,
+            condition,
+            sellerName,
+            prime,
+            shippingInfo,
+            shopUrl: sellerShopUrl
+        });
+    });
     return sellers;
 }
 
