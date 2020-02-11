@@ -73,14 +73,14 @@ Apify.main(async () => {
                         // });
                         await requestQueue.addRequest(
                             {
-                                url: item.url,
-                                userData: {
-                                    label: "seller",
-                                    keyword: request.userData.keyword,
-                                    asin: item.asin,
-                                    detailUrl: item.detailUrl,
-                                    sellerUrl: item.sellerUrl
-                                }
+                                url: item.detailUrl
+                                // userData: {
+                                //     label: "seller",
+                                //     keyword: request.userData.keyword,
+                                //     asin: item.asin,
+                                //     detailUrl: item.detailUrl,
+                                //     sellerUrl: item.sellerUrl
+                                // }
                             },
                             { forefront: true }
                         );
