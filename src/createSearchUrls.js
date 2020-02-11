@@ -48,7 +48,7 @@ async function createSearchUrls(input) {
     return input.keywords.map(keyword => ({
         url: `${searchUrlBase}s?k=${keyword
             .replace(/\\s/g, "+")
-            .trim()}&&rh=p_76%3A419122031`,
+            .trim()}&rh=p_76%3A419122031`,
         userData: {
             label: "page",
             keyword
