@@ -65,21 +65,22 @@ Apify.main(async () => {
                 try {
                     const items = await parseItemUrls($, request);
                     for (const item of items) {
-                        await requestQueue.addRequest(
-                            {
-                                url: item.url,
-                                userData: {
-                                    label: "seller",
-                                    keyword: request.userData.keyword,
-                                    asin: item.asin,
-                                    detailUrl: item.detailUrl,
-                                    sellerUrl: item.sellerUrl
-                                }
-                            },
-                            {
-                                forefront: true
-                            }
-                        );
+                        console.log(item.detailUrl);
+
+                        await Apify.pushData({
+                            productUrl: item.detailUrl,
+                            title: title
+                        });
+                        // await requestQueue.addRequest({
+                        //     url: item.url,
+                        //     userData: {
+                        //         label: 'seller',
+                        //         keyword: request.userData.keyword,
+                        //         asin: item.asin,
+                        //         detailUrl: item.detailUrl,
+                        //         sellerUrl: item.sellerUrl,
+                        //     },
+                        // }, { forefront: true });
                     }
                 } catch (error) {
                     await Apify.pushData({
@@ -116,9 +117,7 @@ Apify.main(async () => {
                                         sellers: item.sellers
                                     }
                                 },
-                                {
-                                    forefront: true
-                                }
+                                { forefront: true }
                             );
                         } else {
                             console.log(`Saving item url: ${request.url}`);
