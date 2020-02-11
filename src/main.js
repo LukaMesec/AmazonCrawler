@@ -67,20 +67,23 @@ Apify.main(async () => {
                     for (const item of items) {
                         console.log(item.detailUrl);
 
-                        await Apify.pushData({
-                            productUrl: item.detailUrl,
-                            title: title
-                        });
-                        // await requestQueue.addRequest({
-                        //     url: item.url,
-                        //     userData: {
-                        //         label: 'seller',
-                        //         keyword: request.userData.keyword,
-                        //         asin: item.asin,
-                        //         detailUrl: item.detailUrl,
-                        //         sellerUrl: item.sellerUrl,
-                        //     },
-                        // }, { forefront: true });
+                        // await Apify.pushData({
+                        //     productUrl: item.detailUrl,
+                        //     title: title
+                        // });
+                        await requestQueue.addRequest(
+                            {
+                                url: item.url,
+                                userData: {
+                                    label: "seller",
+                                    keyword: request.userData.keyword,
+                                    asin: item.asin,
+                                    detailUrl: item.detailUrl,
+                                    sellerUrl: item.sellerUrl
+                                }
+                            },
+                            { forefront: true }
+                        );
                     }
                 } catch (error) {
                     await Apify.pushData({
