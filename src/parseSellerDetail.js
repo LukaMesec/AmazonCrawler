@@ -20,8 +20,10 @@ function extractInfo($) {
             .text()
             .replace(/\r?\n|\r/g, "")
     ).trim();
-    const picUrl = $("div#ivLargeImage").html();
-    console.log(picUrl);
+    const picUrl = $("li.a-align-center sims-fbt-image-1").html();
+
+    const technicalDetails = $("div.attrG").text();
+    console.log(picUrl, technicalDetails);
     // const productImg=$("div#ivLargeImage")
     // console.log(description, title);
     // const h1 = $("h1");
@@ -29,7 +31,9 @@ function extractInfo($) {
     return {
         title,
         price,
-        description
+        description,
+        picUrl,
+        technicalDetails
 
         // title: h1.length !== 0 ? h1.text().trim() : null,
         // image:
