@@ -24,7 +24,7 @@ function extractInfo($) {
 
     // const technicalDetails = $("div.attrG").text()
     const itemWeight = String($("tr.size-weight").text())
-        .repalce(/[0-9]{2,}/g, " " + /[0-9]{2,}/g)
+        .replace(/[0-9]{2,}/g, " " + /[0-9]{2,}/g)
         .replace(/[A-Z]/g, " " + /[A-Z]/g);
     const modelNumber = $("tr.item-model-number")
         .text()
