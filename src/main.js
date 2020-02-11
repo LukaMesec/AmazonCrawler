@@ -65,7 +65,7 @@ Apify.main(async () => {
                 try {
                     const items = await parseItemUrls($, request);
                     for (const item of items) {
-                        console.log(item.detailUrl);
+                        // console.log(item.detailUrl);
 
                         // await Apify.pushData({
                         //     productUrl: item.detailUrl,
@@ -98,7 +98,8 @@ Apify.main(async () => {
             try {
                 const item = await parseSellerDetail($, request);
                 const itemUrl = item.detailUrl;
-                Apify.pushData({ item, itemUrl });
+                console.log(itemUrl);
+                Apify.pushData({ item, itemurl: itemUrl });
             } catch (error) {
                 console.error(error);
                 await saveItem(
