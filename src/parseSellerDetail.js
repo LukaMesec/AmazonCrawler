@@ -167,8 +167,6 @@ function extractSellers($, request) {
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
-    console.log(request);
-
     const sellerDetailsUrl = String(request.url).replace(
         "/dp/",
         "/gp/offer-listing/"
@@ -197,7 +195,7 @@ async function parseSellerDetail($, request) {
     // if (item.title === null) {
     //     item.status = "This ASIN is not available for this country.";
     // }
-    // return item;
+    return item;
 }
 
 module.exports = parseSellerDetail;
