@@ -114,7 +114,6 @@ Apify.main(async () => {
 
             try {
                 const item = await parseSellerDetail($, request);
-                // const moreData=await parseSellerDetail($, request.url1);
                 Apify.pushData({ item });
             } catch (error) {
                 console.error(error);

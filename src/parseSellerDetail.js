@@ -175,6 +175,15 @@ async function parseSellerDetail($, request) {
         "/gp/offer-listing/"
     );
     const item = await extractInfo($);
+    try {
+        await requestQueue.addRequest({
+            url: sellerDetailsUrl
+        });
+        const primes = await parsePrimes($, request);
+        item.primes = primes;
+    } catch (error) {
+        console.log(error);
+    }
 
     // request.url = sellerDetailsUrl;
     // request.loadedUrl = sellerDetailsUrl;
