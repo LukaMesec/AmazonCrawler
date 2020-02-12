@@ -6,7 +6,7 @@ const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 const Apify = require("apify");
 const cheerio = require("cheerio");
-const request = require("request");
+const request1 = require("request");
 
 function extractInfo($) {
     const description = String(
@@ -62,7 +62,7 @@ function offerDetails($, request) {
     // const requestQueue = await Apify.openRequestQueue();
     console.log(request);
 
-    request(String(request.userData.sellerUrl), (error, response, html) => {
+    request1(String(request.userData.sellerUrl), (error, response, html) => {
         if (!error && response.statusCode == 200) {
             const $ = cheerio.load(html);
             console.log($);
