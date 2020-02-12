@@ -56,6 +56,19 @@ function extractInfo($) {
         //         : null
     };
 }
+function offerDetails($,request){
+    const requestQueue = await Apify.openRequestQueue();
+        console.log(request);
+        return request;
+        // const req1 = await requestQueue.addRequest(
+        //     {
+        //         url: String(request.userData.sellerUrl)
+        //     },
+        //     { forefront: true }
+        // );
+        // const primes = await parsePrimes($, req1);
+        // item.primes = primes;
+}
 
 // function extractMoreInfro($) {
 //     const description = $("div#productDescription")
@@ -169,25 +182,12 @@ async function extractSellers($, request) {
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
-    const requestQueue = await Apify.openRequestQueue();
     const sellerDetailsUrl = String(request.url).replace(
         "/dp/",
         "/gp/offer-listing/"
     );
     const item = await extractInfo($);
-    try {
-        console.log(request.userData.sellerUrl);
-        const req1 = await requestQueue.addRequest(
-            {
-                url: String(request.userData.sellerUrl)
-            },
-            { forefront: true }
-        );
-        const primes = await parsePrimes($, req1);
-        item.primes = primes;
-    } catch (error) {
-        return (item.primes = "no data");
-    }
+    const offerDetails=await offerDetails($,request);
 
     // request.url = sellerDetailsUrl;
     // request.loadedUrl = sellerDetailsUrl;

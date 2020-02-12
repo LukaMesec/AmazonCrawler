@@ -126,53 +126,6 @@ Apify.main(async () => {
         }
     });
 
-    const crawler1 = new SessionsCheerioCrawler({
-        requestQueue,
-        ...config,
-        maxOpenPagesPerInstance: 5,
-        retireInstanceAfterRequestCount: 5,
-        handlePageFunction: async ({ $, request }) => {
-            const urlOrigin = await getOriginUrl(request);
-            try {
-                const items = await parseItemUrls($, request);
-                for (const item of items) {
-                    await requestQueue.addRequest(
-                        {
-                            url: item.detailUrl,
-                            url1: item.url,
-                            userData: {
-                                label: "seller",
-                                keyword: request.userData.keyword,
-                                asin: item.asin,
-                                detailUrl: item.detailUrl,
-                                sellerUrl: item.sellerUrl
-                            }
-                        },
-                        { forefront: true }
-                    );
-                    console.log(request);
-                }
-            } catch (error) {
-                await Apify.pushData({
-                    status: "No items for this keyword.",
-                    url: request.url,
-                    keyword: request.userData.keyword
-                });
-            }
-        },
-
-        // If request failed 4 times then this function is executed.
-        handleFailedRequestFunction: async ({ request }) => {
-            await Apify.pushData({
-                status: "Page failed 4 times, check it out, what happened.",
-                url: request.url,
-                keyword: request.userData.keyword
-            });
-            console.log(`Request ${request.url} failed 4 times`);
-        }
-    });
-
     // Run crawler.
     await crawler.run();
-    await crawler1.run();
 });
