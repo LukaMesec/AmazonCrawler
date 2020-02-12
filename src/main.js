@@ -65,29 +65,27 @@ Apify.main(async () => {
                 try {
                     const items = await parseItemUrls($, request);
                     for (const item of items) {
+                        // console.log(item.detailUrl);
+
+                        // await Apify.pushData({
+                        //     productUrl: item.detailUrl,
+                        //     title: title
+                        // });
+                        // console.log(item.url);
                         await requestQueue.addRequest(
                             {
-                                url: item.detailUrl,
-                                userData: {
-                                    sellerUrl: item.sellerUrl
-                                }
+                                url: item.detailUrl
+                                // url1: item.url
+                                // userData: {
+                                //     label: "seller",
+                                //     keyword: request.userData.keyword,
+                                //     asin: item.asin,
+                                //     detailUrl: item.detailUrl,
+                                //     sellerUrl: item.sellerUrl
+                                // }
                             },
                             { forefront: true }
                         );
-                        // await requestQueue.addRequest(
-                        //     {
-                        //         url: item.sellerUrl
-                        //         // url1: item.url
-                        //         // userData: {
-                        //         //     label: "seller",
-                        //         //     keyword: request.userData.keyword,
-                        //         //     asin: item.asin,
-                        //         //     detailUrl: item.detailUrl,
-                        //         //     sellerUrl: item.sellerUrl
-                        //         // }
-                        //     },
-                        //     { forefront: true }
-                        // );
                     }
                 } catch (error) {
                     await Apify.pushData({
@@ -100,8 +98,9 @@ Apify.main(async () => {
             }
 
             try {
-                // console.log(request);
                 const item = await parseSellerDetail($, request);
+                // const moreData=await parseSellerDetail($, request.url1);
+                console.log(request.url1);
                 Apify.pushData({ item });
             } catch (error) {
                 console.error(error);
