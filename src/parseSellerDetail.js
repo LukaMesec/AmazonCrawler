@@ -176,6 +176,7 @@ async function parseSellerDetail($, request) {
     );
     const item = await extractInfo($);
     try {
+        console.log(request.userData.sellerUrl);
         const req1 = await requestQueue.addRequest(
             {
                 url: String(request.userData.sellerUrl)
