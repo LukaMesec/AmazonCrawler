@@ -76,7 +76,7 @@ function extractInfo($) {
 // }
 
 function extractSellers($, request) {
-    console.log(request);
+    // console.log(request);
     // console.log(request);
     // const sellers = [];
     // console.log(request);
@@ -176,6 +176,7 @@ async function parseSellerDetail($, request) {
     // request.loadedUrl = sellerDetailsUrl;
     // request.uniqueKey = sellerDetailsUrl;
     const sellers = await extractSellers($, request);
+    console.log(sellers);
     item.productUrl = request.url;
     item.sellers = sellers;
     // const currency = await getCurrency(request);
