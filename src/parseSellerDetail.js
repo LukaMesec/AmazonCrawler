@@ -76,11 +76,8 @@ function extractInfo($) {
 //     return `${parsedUrl.url}/?seller=${parsedUrl.query.seller}`;
 // }
 
-function extractSellers($, request) {
-    console.log($().text());
-    console.log($().html());
-
-    console.log(request);
+async function extractSellers($, request) {
+    return $();
     // console.log(request);
     // const sellers = [];
     // console.log(request);
@@ -185,7 +182,8 @@ async function parseSellerDetail($, request) {
     const qu1 = await requestQueue.addRequest({
         url: String(request.userData.sellerUrl)
     });
-    extractSellers($, qu1);
+    const reults1 = await extractSellers($, qu1);
+    console.log(reults1);
     item.productUrl = request.url;
     // const currency = await getCurrency(request);
     // console.log(item);
