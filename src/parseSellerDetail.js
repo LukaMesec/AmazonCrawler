@@ -1,6 +1,7 @@
 /* global $ */
 const parsePrice = require("parse-price");
 const queryString = require("query-string");
+const parsePrimes = require("./parsePrimes.js");
 const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 const Apify = require("apify");
@@ -174,34 +175,18 @@ async function parseSellerDetail($, request) {
         "/gp/offer-listing/"
     );
     const item = await extractInfo($);
+
     // request.url = sellerDetailsUrl;
     // request.loadedUrl = sellerDetailsUrl;
     // request.uniqueKey = sellerDetailsUrl;
     // const sellers = await extractSellers($, request);
     // console.log(sellers);
-    const qu1 = await requestQueue.addRequest({
-        url: String(request.userData.sellerUrl)
-    });
-    const reults1 = await extractSellers($, qu1);
-    console.log(reults1);
+    // const qu1 = await requestQueue.addRequest({
+    //     url: String(request.userData.sellerUrl)
+    // });
+    // const reults1 = await extractSellers($, qu1);
+    // console.log(reults1);
     item.productUrl = request.url;
-    // const currency = await getCurrency(request);
-    // console.log(item);
-    // if (request.userData.sellers) {
-    //     item.sellers = request.userData.sellers.concat(sellers);
-    // } else {
-    //     item.sellers = sellers;
-    // }
-    // const { keyword, asin, detailUrl, sellerUrl, country } = request.userData;
-    // item.keyword = keyword;
-    // item.asin = asin;
-    // item.itemDetailUrl = detailUrl;
-    // item.sellerOffersUrl = sellerUrl;
-    // item.country = country;
-    // item.currency = currency;
-    // if (item.title === null) {
-    //     item.status = "This ASIN is not available for this country.";
-    // }
     return item;
 }
 
