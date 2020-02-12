@@ -76,8 +76,7 @@ function extractInfo($) {
 // }
 
 function extractSellers($, request) {
-    console.log(request);
-
+    // console.log(request);
     // const sellers = [];
     // console.log(request);
     // const hostName = parseUrl(request.url).hostname;
@@ -114,7 +113,6 @@ function extractSellers($, request) {
     //                       .attr("href")}`
     //               )
     //             : null;
-
     //     let prime = false;
     //     if ($(this).find("a:contains('Fulfillment by Amazon')").length !== 0) {
     //         prime = true;
@@ -125,7 +123,6 @@ function extractSellers($, request) {
     //     }
     //     const offerConditionEle = $(this).find("div#offerCondition");
     //     const olpConditionEle = $(this).find("span.olpCondition");
-
     //     if (offerConditionEle.length !== 0) {
     //         condition = offerConditionEle
     //             .text()
@@ -139,7 +136,6 @@ function extractSellers($, request) {
     //     } else {
     //         condition = "condition unknown";
     //     }
-
     //     const olpShippingInfoEle = $(this).find("p.olpShippingInfo ");
     //     if (olpShippingInfoEle.length !== 0) {
     //         shippingInfo = olpShippingInfoEle
@@ -153,7 +149,6 @@ function extractSellers($, request) {
     //     } else {
     //         shippingInfo = "shipping info not included";
     //     }
-
     //     sellers.push({
     //         price,
     //         priceParsed,
@@ -170,20 +165,22 @@ function extractSellers($, request) {
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
-    const sellerDetailsUrl = String(request.url).replace(
-        "/dp/",
-        "/gp/offer-listing/"
-    );
-    const item = await extractInfo($);
-    request.id = Math.random()
-        .toString(36)
-        .substring(2);
-    request.url = sellerDetailsUrl;
-    request.loadedUrl = sellerDetailsUrl;
-    request.uniqueKey = sellerDetailsUrl;
-    const sellers = await extractSellers($, request);
-    item.productUrl = request.url;
-    item.sellers = sellers;
+    console.log(request);
+
+    // const sellerDetailsUrl = String(request.url).replace(
+    //     "/dp/",
+    //     "/gp/offer-listing/"
+    // );
+    // const item = await extractInfo($);
+    // request.id = Math.random()
+    //     .toString(36)
+    //     .substring(2);
+    // // request.url = sellerDetailsUrl;
+    // // request.loadedUrl = sellerDetailsUrl;
+    // // request.uniqueKey = sellerDetailsUrl;
+    // const sellers = await extractSellers($, request);
+    // item.productUrl = request.url;
+    // item.sellers = sellers;
     // const currency = await getCurrency(request);
     // console.log(item);
     // if (request.userData.sellers) {
