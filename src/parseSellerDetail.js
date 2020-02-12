@@ -176,10 +176,10 @@ async function parseSellerDetail($, request) {
     );
     const item = await extractInfo($);
     try {
-        await requestQueue.addRequest({
+        const req1 = await requestQueue.addRequest({
             url: String(request.userData.sellerUrl)
         });
-        const primes = await parsePrimes($, request);
+        const primes = await parsePrimes($, req1);
         item.primes = primes;
     } catch (error) {
         return (item.primes = "no data");
