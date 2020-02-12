@@ -169,6 +169,7 @@ function extractInfo($) {
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
     // const sellers = await extractSellers($, request);
+    console.log(request);
     const item = await extractInfo($);
     item.productUrl = request.url;
     // const currency = await getCurrency(request);
