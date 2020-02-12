@@ -74,32 +74,33 @@ Apify.main(async () => {
                         // console.log(item.url);
                         await requestQueue.addRequest(
                             {
-                                url: item.detailUrl
+                                url: item.detailUrl,
+
                                 // url1: item.url
-                                // userData: {
-                                //     label: "seller",
-                                //     keyword: request.userData.keyword,
-                                //     asin: item.asin,
-                                //     detailUrl: item.detailUrl,
-                                //     sellerUrl: item.sellerUrl
-                                // }
+                                userData: {
+                                    // label: "seller",
+                                    // keyword: request.userData.keyword,
+                                    // asin: item.asin,
+                                    // detailUrl: item.detailUrl,
+                                    sellerUrl: item.sellerUrl
+                                }
                             },
                             { forefront: true }
                         );
-                        await requestQueue.addRequest(
-                            {
-                                url: item.sellerUrl
-                                // url1: item.url
-                                // userData: {
-                                //     label: "seller",
-                                //     keyword: request.userData.keyword,
-                                //     asin: item.asin,
-                                //     detailUrl: item.detailUrl,
-                                //     sellerUrl: item.sellerUrl
-                                // }
-                            },
-                            { forefront: true }
-                        );
+                        // await requestQueue.addRequest(
+                        //     {
+                        //         url: item.sellerUrl
+                        //         // url1: item.url
+                        //         // userData: {
+                        //         //     label: "seller",
+                        //         //     keyword: request.userData.keyword,
+                        //         //     asin: item.asin,
+                        //         //     detailUrl: item.detailUrl,
+                        //         //     sellerUrl: item.sellerUrl
+                        //         // }
+                        //     },
+                        //     { forefront: true }
+                        // );
                     }
                 } catch (error) {
                     await Apify.pushData({
