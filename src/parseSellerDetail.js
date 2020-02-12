@@ -175,6 +175,9 @@ async function parseSellerDetail($, request) {
         "/gp/offer-listing/"
     );
     const item = await extractInfo($);
+    request.id = Math.random()
+        .toString(36)
+        .substring(2);
     request.url = sellerDetailsUrl;
     request.loadedUrl = sellerDetailsUrl;
     request.uniqueKey = sellerDetailsUrl;
