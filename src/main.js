@@ -100,6 +100,7 @@ Apify.main(async () => {
             }
 
             try {
+                console.log(request);
                 const item = await parseSellerDetail($, request);
                 Apify.pushData({ item });
             } catch (error) {
