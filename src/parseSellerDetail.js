@@ -78,7 +78,7 @@ function extractInfo($) {
 
 function extractSellers($, request) {
     console.log(request);
-    console.log;
+    console.log($);
     // console.log(request);
     // console.log(request);
     // const sellers = [];
@@ -170,7 +170,7 @@ function extractSellers($, request) {
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
-    console.log(request);
+    console.log($);
     const requestQueue = await Apify.openRequestQueue();
     const sellerDetailsUrl = String(request.url).replace(
         "/dp/",
