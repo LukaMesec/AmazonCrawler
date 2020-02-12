@@ -75,110 +75,112 @@ function extractInfo($) {
 //     return `${parsedUrl.url}/?seller=${parsedUrl.query.seller}`;
 // }
 
-// function extractSellers($, request) {
-//     console.log(request.url1);
-//     const sellers = [];
-//     const hostName = parseUrl(request.url).hostname;
-//     $("div.olpOffer").each(function() {
-//         const priceElem = $(this).find("span.olpOfferPrice");
-//         const sellerNameEle = $(this).find("h3.olpSellerName img");
-//         let price;
-//         let priceParsed = null;
-//         if (priceElem.length !== 0) {
-//             price = priceElem
-//                 .text()
-//                 .trim()
-//                 .replace("Rs.", "Rs");
-//             priceParsed = parsePrice(price);
-//         } else {
-//             price = "price not displayed";
-//         }
-//         let shippingInfo;
-//         let condition;
-//         const sellerName =
-//             sellerNameEle.length !== 0
-//                 ? sellerNameEle.attr("alt")
-//                 : $(this)
-//                       .find("h3.olpSellerName")
-//                       .text()
-//                       .trim();
-//         const sellerShopUrl =
-//             sellerNameEle.length !== 0
-//                 ? hostName
-//                 : $(this).find("h3.olpSellerName a").length !== 0
-//                 ? buildSellerUrl(
-//                       `${hostName}${$(this)
-//                           .find("h3.olpSellerName a")
-//                           .attr("href")}`
-//                   )
-//                 : null;
+function extractSellers($, request) {
+    console.log(request.url1);
+    const sellers = [];
+    const hostName = parseUrl(request.url).hostname;
+    $("div.olpOffer").each(function() {
+        const priceElem = $(this).find("span.olpOfferPrice");
+        const sellerNameEle = $(this).find("h3.olpSellerName img");
+        let price;
+        let priceParsed = null;
+        if (priceElem.length !== 0) {
+            price = priceElem
+                .text()
+                .trim()
+                .replace("Rs.", "Rs");
+            priceParsed = parsePrice(price);
+        } else {
+            price = "price not displayed";
+        }
+        let shippingInfo;
+        let condition;
+        const sellerName =
+            sellerNameEle.length !== 0
+                ? sellerNameEle.attr("alt")
+                : $(this)
+                      .find("h3.olpSellerName")
+                      .text()
+                      .trim();
+        const sellerShopUrl =
+            sellerNameEle.length !== 0
+                ? hostName
+                : $(this).find("h3.olpSellerName a").length !== 0
+                ? buildSellerUrl(
+                      `${hostName}${$(this)
+                          .find("h3.olpSellerName a")
+                          .attr("href")}`
+                  )
+                : null;
 
-//         let prime = false;
-//         if ($(this).find("a:contains('Fulfillment by Amazon')").length !== 0) {
-//             prime = true;
-//         } else if ($(this).find("i.a-icon-prime").length !== 0) {
-//             prime = true;
-//         } else if (sellerName === "Amazon.com") {
-//             prime = true;
-//         }
-//         const offerConditionEle = $(this).find("div#offerCondition");
-//         const olpConditionEle = $(this).find("span.olpCondition");
+        let prime = false;
+        if ($(this).find("a:contains('Fulfillment by Amazon')").length !== 0) {
+            prime = true;
+        } else if ($(this).find("i.a-icon-prime").length !== 0) {
+            prime = true;
+        } else if (sellerName === "Amazon.com") {
+            prime = true;
+        }
+        const offerConditionEle = $(this).find("div#offerCondition");
+        const olpConditionEle = $(this).find("span.olpCondition");
 
-//         if (offerConditionEle.length !== 0) {
-//             condition = offerConditionEle
-//                 .text()
-//                 .replace(/\s\s+/g, " ")
-//                 .trim();
-//         } else if (olpConditionEle.length !== 0) {
-//             condition = olpConditionEle
-//                 .text()
-//                 .replace(/\s\s+/g, " ")
-//                 .trim();
-//         } else {
-//             condition = "condition unknown";
-//         }
+        if (offerConditionEle.length !== 0) {
+            condition = offerConditionEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
+        } else if (olpConditionEle.length !== 0) {
+            condition = olpConditionEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
+        } else {
+            condition = "condition unknown";
+        }
 
-//         const olpShippingInfoEle = $(this).find("p.olpShippingInfo ");
-//         if (olpShippingInfoEle.length !== 0) {
-//             shippingInfo = olpShippingInfoEle
-//                 .text()
-//                 .replace(/\s\s+/g, " ")
-//                 .trim();
-//         } else if (
-//             $("div.olpPriceColumn:contains('FREE Shipping')").length !== 0
-//         ) {
-//             shippingInfo = "& eligible for FREE Shipping";
-//         } else {
-//             shippingInfo = "shipping info not included";
-//         }
+        const olpShippingInfoEle = $(this).find("p.olpShippingInfo ");
+        if (olpShippingInfoEle.length !== 0) {
+            shippingInfo = olpShippingInfoEle
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim();
+        } else if (
+            $("div.olpPriceColumn:contains('FREE Shipping')").length !== 0
+        ) {
+            shippingInfo = "& eligible for FREE Shipping";
+        } else {
+            shippingInfo = "shipping info not included";
+        }
 
-//         sellers.push({
-//             price,
-//             priceParsed,
-//             condition,
-//             sellerName,
-//             prime,
-//             shippingInfo,
-//             shopUrl: sellerShopUrl
-//         });
-//     });
-//     return sellers;
-// }
+        sellers.push({
+            price,
+            priceParsed,
+            condition,
+            sellerName,
+            prime,
+            shippingInfo,
+            shopUrl: sellerShopUrl
+        });
+    });
+    return sellers;
+}
 
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
-    // const sellers = await extractSellers($, request);
     console.log(request.url);
     console.log(
         "sellersurl:" +
-            String(request.url).replace(
-                "https://www.amazon.com/dp/",
-                "https://www.amazon.de/gp/offer-listing/"
-            )
+            String(request.url).replace("/dp/", "/gp/offer-listing/")
+    );
+    const sellerDetailsUrl = String(request.url).replace(
+        "/dp/",
+        "/gp/offer-listing/"
     );
     const item = await extractInfo($);
+    const sellers = await extractSellers($, sellerDetailsUrl);
     item.productUrl = request.url;
+    item.sellers = sellers;
     // const currency = await getCurrency(request);
     // console.log(item);
     // if (request.userData.sellers) {
