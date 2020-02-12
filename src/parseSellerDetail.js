@@ -76,6 +76,7 @@ function extractInfo($) {
 // }
 
 function extractSellers($, request) {
+    console.log(request);
     // console.log(request);
     // const sellers = [];
     // console.log(request);
@@ -160,6 +161,7 @@ function extractSellers($, request) {
     //     });
     // });
     // return sellers;
+    return request;
 }
 
 // to in a way to make sense what they are doing, so this one should be
@@ -167,20 +169,17 @@ function extractSellers($, request) {
 async function parseSellerDetail($, request) {
     console.log(request);
 
-    // const sellerDetailsUrl = String(request.url).replace(
-    //     "/dp/",
-    //     "/gp/offer-listing/"
-    // );
-    // const item = await extractInfo($);
-    // request.id = Math.random()
-    //     .toString(36)
-    //     .substring(2);
-    // // request.url = sellerDetailsUrl;
-    // // request.loadedUrl = sellerDetailsUrl;
-    // // request.uniqueKey = sellerDetailsUrl;
-    // const sellers = await extractSellers($, request);
-    // item.productUrl = request.url;
-    // item.sellers = sellers;
+    const sellerDetailsUrl = String(request.url).replace(
+        "/dp/",
+        "/gp/offer-listing/"
+    );
+    const item = await extractInfo($);
+    // request.url = sellerDetailsUrl;
+    // request.loadedUrl = sellerDetailsUrl;
+    // request.uniqueKey = sellerDetailsUrl;
+    const sellers = await extractSellers($, request);
+    item.productUrl = request.url;
+    item.sellers = sellers;
     // const currency = await getCurrency(request);
     // console.log(item);
     // if (request.userData.sellers) {
@@ -198,7 +197,7 @@ async function parseSellerDetail($, request) {
     // if (item.title === null) {
     //     item.status = "This ASIN is not available for this country.";
     // }
-    return item;
+    // return item;
 }
 
 module.exports = parseSellerDetail;
