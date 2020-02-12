@@ -77,7 +77,7 @@ function extractInfo($) {
 // }
 
 async function extractSellers($, request) {
-    return $("h1.a-size-large a-spacing-none").text();
+    return $().text();
     // console.log(request);
     // const sellers = [];
     // console.log(request);
