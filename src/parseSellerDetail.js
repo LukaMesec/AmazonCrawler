@@ -180,8 +180,9 @@ async function parseSellerDetail($, request) {
     // request.uniqueKey = sellerDetailsUrl;
     // const sellers = await extractSellers($, request);
     // console.log(sellers);
+    console.log(String(request.userData.sellerUrl));
     const qu1 = await requestQueue.addRequest({
-        url: request.userData.sellerUrl
+        url: String(request.userData.sellerUrl)
     });
     extractSellers(qu1);
     item.productUrl = request.url;
