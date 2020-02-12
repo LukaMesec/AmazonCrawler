@@ -65,6 +65,7 @@ function offerDetails($, request) {
     request1(String(request.userData.sellerUrl), (error, response, html) => {
         if (!error && response.statusCode == 200) {
             const $ = cheerio.load(html);
+            console.log("dela");
             console.log($);
         }
     });
