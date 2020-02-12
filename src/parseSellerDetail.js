@@ -7,8 +7,6 @@ const { getCurrency } = require("./utils.js");
 const Apify = require("apify");
 
 function extractInfo($) {
-    console.log($());
-
     const description = String(
         $("div#productDescription")
             .text()
