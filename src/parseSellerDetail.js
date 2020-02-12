@@ -76,7 +76,6 @@ function extractInfo($) {
 // }
 
 function extractSellers($, request) {
-    console.log(request.url1);
     const sellers = [];
     const hostName = parseUrl(request.url).hostname;
     $("div.olpOffer").each(function() {
@@ -168,7 +167,7 @@ function extractSellers($, request) {
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
-    console.log(request.url);
+    console.log(request);
     console.log(
         "sellersurl:" +
             String(request.url).replace("/dp/", "/gp/offer-listing/")
