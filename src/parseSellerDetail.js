@@ -5,6 +5,7 @@ const parsePrimes = require("./parsePrimes.js");
 const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 const Apify = require("apify");
+const cheerio = require("cheerio");
 
 function extractInfo($) {
     const description = String(
@@ -56,11 +57,16 @@ function extractInfo($) {
         //         : null
     };
 }
-async function offerDetails($, request) {
-    const requestQueue = await Apify.openRequestQueue();
-
-    await requestQueue.addRequest({ url: request.userData.sellerUrl });
+function offerDetails($, request) {
+    // const requestQueue = await Apify.openRequestQueue();
     console.log(request);
+
+    request(String(request.userData.sellerUrl), (error, response, html) => {
+        if (!error && response.statusCode == 200) {
+            const $ = cheerio.load(html);
+            console.log($);
+        }
+    });
     return request;
     // const req1 = await requestQueue.addRequest(
     //     {
