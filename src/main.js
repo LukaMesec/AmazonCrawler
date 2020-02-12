@@ -72,20 +72,19 @@ Apify.main(async () => {
                         //     title: title
                         // });
                         // console.log(item.url);
-                        await requestQueue.addRequest(
-                            {
-                                url: item.detailUrl,
-                                url1: item.url
-                                // userData: {
-                                //     label: "seller",
-                                //     keyword: request.userData.keyword,
-                                //     asin: item.asin,
-                                //     detailUrl: item.detailUrl,
-                                //     sellerUrl: item.sellerUrl
-                                // }
-                            },
-                            { forefront: true }
-                        );
+                        // await requestQueue.addRequest(
+                        //     {
+                        //         url: item.detailUrl,
+                        //         // userData: {
+                        //         //     label: "seller",
+                        //         //     keyword: request.userData.keyword,
+                        //         //     asin: item.asin,
+                        //         //     detailUrl: item.detailUrl,
+                        //         //     sellerUrl: item.sellerUrl
+                        //         // }
+                        //     },
+                        //     { forefront: true }
+                        // );
                         await requestQueue.addRequest(
                             {
                                 url: item.url
