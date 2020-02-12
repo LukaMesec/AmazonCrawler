@@ -7,6 +7,8 @@ const { getCurrency } = require("./utils.js");
 const Apify = require("apify");
 
 function extractInfo($) {
+    console.log($());
+
     const description = String(
         $("div#productDescription")
             .text()
@@ -176,9 +178,12 @@ async function parseSellerDetail($, request) {
     );
     const item = await extractInfo($);
     try {
-        const req1 = await requestQueue.addRequest({
-            url: String(request.userData.sellerUrl)
-        });
+        const req1 = await requestQueue.addRequest(
+            {
+                url: String(request.userData.sellerUrl)
+            },
+            { forefront: true }
+        );
         const primes = await parsePrimes($, req1);
         item.primes = primes;
     } catch (error) {

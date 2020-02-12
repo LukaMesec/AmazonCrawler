@@ -1,10 +1,12 @@
 const Apify = require("apify");
 
-function extractInfo($) {}
+function extractInfo($) {
+    console.log($());
+}
 
 async function parsePrimes($, request) {
-    console.log(request);
-    return request;
+    const primes = extractInfo($);
+    console.log(primes);
 }
 
 module.exports = parsePrimes;
