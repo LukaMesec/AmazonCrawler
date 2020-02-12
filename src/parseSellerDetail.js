@@ -174,8 +174,8 @@ async function parseSellerDetail($, request) {
     );
     const item = await extractInfo($);
     request.url = sellerDetailsUrl;
-    request.loaddedUrl = sellerDetailsUrl;
-    request.uniqueKeyuni = sellerDetailsUrl;
+    request.loadedUrl = sellerDetailsUrl;
+    request.uniqueKey = sellerDetailsUrl;
     const sellers = await extractSellers($, request);
     item.productUrl = request.url;
     item.sellers = sellers;
