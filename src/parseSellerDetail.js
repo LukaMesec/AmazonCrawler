@@ -161,7 +161,7 @@ function extractSellers($, request) {
     //     });
     // });
     // return sellers;
-    return request;
+    return request.url;
 }
 
 // to in a way to make sense what they are doing, so this one should be
