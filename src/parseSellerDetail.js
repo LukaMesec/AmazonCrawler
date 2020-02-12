@@ -169,8 +169,14 @@ function extractInfo($) {
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
     // const sellers = await extractSellers($, request);
-    console.log($);
-    console.log(request);
+    console.log(request.url);
+    console.log(
+        "sellersurl:" +
+            String(request.url).replace(
+                "https://www.amazon.com/dp/",
+                "https://www.amazon.de/gp/offer-listing/"
+            )
+    );
     const item = await extractInfo($);
     item.productUrl = request.url;
     // const currency = await getCurrency(request);
