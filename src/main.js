@@ -138,25 +138,19 @@ Apify.main(async () => {
                 for (const item of items) {
                     await requestQueue.addRequest(
                         {
-                            url: item.sellerUrl
+                            url: item.detailUrl,
+                            url1: item.url,
+                            userData: {
+                                label: "seller",
+                                keyword: request.userData.keyword,
+                                asin: item.asin,
+                                detailUrl: item.detailUrl,
+                                sellerUrl: item.sellerUrl
+                            }
                         },
                         { forefront: true }
                     );
                     console.log(request);
-                    // await requestQueue.addRequest(
-                    //     {
-                    //         url: item.sellerUrl
-                    //         // url1: item.url
-                    //         // userData: {
-                    //         //     label: "seller",
-                    //         //     keyword: request.userData.keyword,
-                    //         //     asin: item.asin,
-                    //         //     detailUrl: item.detailUrl,
-                    //         //     sellerUrl: item.sellerUrl
-                    //         // }
-                    //     },
-                    //     { forefront: true }
-                    // );
                 }
             } catch (error) {
                 await Apify.pushData({
