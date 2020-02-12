@@ -56,18 +56,18 @@ function extractInfo($) {
         //         : null
     };
 }
-function offerDetails($,request){
+async function offerDetails($, request) {
     const requestQueue = await Apify.openRequestQueue();
-        console.log(request);
-        return request;
-        // const req1 = await requestQueue.addRequest(
-        //     {
-        //         url: String(request.userData.sellerUrl)
-        //     },
-        //     { forefront: true }
-        // );
-        // const primes = await parsePrimes($, req1);
-        // item.primes = primes;
+    console.log(request);
+    return request;
+    // const req1 = await requestQueue.addRequest(
+    //     {
+    //         url: String(request.userData.sellerUrl)
+    //     },
+    //     { forefront: true }
+    // );
+    // const primes = await parsePrimes($, req1);
+    // item.primes = primes;
 }
 
 // function extractMoreInfro($) {
@@ -187,7 +187,7 @@ async function parseSellerDetail($, request) {
         "/gp/offer-listing/"
     );
     const item = await extractInfo($);
-    const offerDetails=await offerDetails($,request);
+    const offerDetails1 = await offerDetails($, request);
 
     // request.url = sellerDetailsUrl;
     // request.loadedUrl = sellerDetailsUrl;
