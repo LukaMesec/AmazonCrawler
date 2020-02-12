@@ -168,16 +168,15 @@ function extractSellers($, request) {
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
     console.log(request);
-    console.log(
-        "sellersurl:" +
-            String(request.url).replace("/dp/", "/gp/offer-listing/")
-    );
     const sellerDetailsUrl = String(request.url).replace(
         "/dp/",
         "/gp/offer-listing/"
     );
+    console.log(sellerDetailsUrl);
     const item = await extractInfo($);
-    const sellers = await extractSellers($, sellerDetailsUrl);
+    request.url = sellerDetailsUrl;
+    console.log(request);
+    const sellers = await extractSellers($, request);
     item.productUrl = request.url;
     item.sellers = sellers;
     // const currency = await getCurrency(request);
