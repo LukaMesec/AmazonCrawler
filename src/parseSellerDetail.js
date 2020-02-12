@@ -184,7 +184,7 @@ async function parseSellerDetail($, request) {
     const qu1 = await requestQueue.addRequest({
         url: String(request.userData.sellerUrl)
     });
-    extractSellers(qu1);
+    extractSellers($, qu1);
     item.productUrl = request.url;
     // const currency = await getCurrency(request);
     // console.log(item);
