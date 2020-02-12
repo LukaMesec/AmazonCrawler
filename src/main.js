@@ -86,6 +86,12 @@ Apify.main(async () => {
                             },
                             { forefront: true }
                         );
+                        await requestQueue.addRequest(
+                            {
+                                url: item.url
+                            },
+                            { forefront: true }
+                        );
                     }
                 } catch (error) {
                     await Apify.pushData({
