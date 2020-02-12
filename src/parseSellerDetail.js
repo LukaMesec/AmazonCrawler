@@ -78,6 +78,9 @@ function extractInfo($) {
 
 function extractSellers($, request) {
     console.log(request);
+
+    const title = $(".a-size-large a-spacing-none").text();
+    console.log(title);
     // console.log(request);
     // console.log(request);
     // const sellers = [];
