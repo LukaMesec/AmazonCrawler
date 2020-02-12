@@ -4,7 +4,6 @@ const queryString = require("query-string");
 const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 const Apify = require("apify");
-const requestQueue = await Apify.openRequestQueue();
 
 function extractInfo($) {
     const description = String(
@@ -170,6 +169,7 @@ function extractSellers($, request) {
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
+    const requestQueue = await Apify.openRequestQueue();
     const sellerDetailsUrl = String(request.url).replace(
         "/dp/",
         "/gp/offer-listing/"
