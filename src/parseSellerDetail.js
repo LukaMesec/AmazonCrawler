@@ -176,11 +176,13 @@ async function parseSellerDetail($, request) {
     // request.url = sellerDetailsUrl;
     // request.loadedUrl = sellerDetailsUrl;
     // request.uniqueKey = sellerDetailsUrl;
-    const sellers = await extractSellers($, request);
-    console.log(sellers);
-
+    // const sellers = await extractSellers($, request);
+    // console.log(sellers);
+    const qu1 = await requestQueue.addRequest({
+        url: request.userData.sellerUrl
+    });
+    extractSellers(qu1);
     item.productUrl = request.url;
-    item.sellers = sellers;
     // const currency = await getCurrency(request);
     // console.log(item);
     // if (request.userData.sellers) {
