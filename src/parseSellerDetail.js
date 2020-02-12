@@ -58,6 +58,8 @@ function extractInfo($) {
 }
 async function offerDetails($, request) {
     const requestQueue = await Apify.openRequestQueue();
+
+    await requestQueue.addRequest({ url: request.userData.sellerUrl });
     console.log(request);
     return request;
     // const req1 = await requestQueue.addRequest(
