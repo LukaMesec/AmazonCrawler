@@ -3,6 +3,8 @@ const parsePrice = require("parse-price");
 const queryString = require("query-string");
 const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
+const Apify = require("apify");
+const requestQueue = await Apify.openRequestQueue();
 
 function extractInfo($) {
     const description = String(
