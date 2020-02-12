@@ -6,6 +6,7 @@ const parseUrl = require("url-parse");
 const { getCurrency } = require("./utils.js");
 const Apify = require("apify");
 const cheerio = require("cheerio");
+const request = require("request");
 
 function extractInfo($) {
     const description = String(
