@@ -163,7 +163,7 @@ function extractSellers($, request) {
     //     });
     // });
     // return sellers;
-    return request.url;
+    // return request;
 }
 
 // to in a way to make sense what they are doing, so this one should be
