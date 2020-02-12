@@ -46,9 +46,7 @@ async function createSearchUrls(input) {
     }
     searchUrlBase = getBaseUrl(input.country);
     return input.keywords.map(keyword => ({
-        url: `${searchUrlBase}s?k=${keyword
-            .replace(/\\s/g, "+")
-            .trim()}&rh=p_76%3A419122031&rh=p_n_condition-type%3A6461716011`, //&rh=p_76%3A419122031 means searching only PRIME products and &rh=p_n_condition-type%3A6461716011 means NEW
+        url: `${searchUrlBase}s?k=${keyword.replace(/\\s/g, "+").trim()}`, //&rh=p_76%3A419122031 means searching only PRIME products and &rh=p_n_condition-type%3A6461716011 means NEW
         userData: {
             label: "page",
             keyword
