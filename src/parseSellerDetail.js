@@ -177,12 +177,12 @@ async function parseSellerDetail($, request) {
     const item = await extractInfo($);
     try {
         await requestQueue.addRequest({
-            url: sellerDetailsUrl
+            url: String(request.userData.sellerUrl)
         });
         const primes = await parsePrimes($, request);
         item.primes = primes;
     } catch (error) {
-        console.log(error);
+        return (item.primes = "no data");
     }
 
     // request.url = sellerDetailsUrl;

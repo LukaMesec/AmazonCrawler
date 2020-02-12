@@ -65,23 +65,10 @@ Apify.main(async () => {
                 try {
                     const items = await parseItemUrls($, request);
                     for (const item of items) {
-                        // console.log(item.detailUrl);
-
-                        // await Apify.pushData({
-                        //     productUrl: item.detailUrl,
-                        //     title: title
-                        // });
-                        // console.log(item.url);
                         await requestQueue.addRequest(
                             {
                                 url: item.detailUrl,
-
-                                // url1: item.url
                                 userData: {
-                                    // label: "seller",
-                                    // keyword: request.userData.keyword,
-                                    // asin: item.asin,
-                                    // detailUrl: item.detailUrl,
                                     sellerUrl: item.sellerUrl
                                 }
                             },
