@@ -77,6 +77,7 @@ function extractInfo($) {
 
 function extractSellers($, request) {
     const sellers = [];
+    console.log(request);
     const hostName = parseUrl(request.url).hostname;
     $("div.olpOffer").each(function() {
         const priceElem = $(this).find("span.olpOfferPrice");
@@ -167,15 +168,14 @@ function extractSellers($, request) {
 // to in a way to make sense what they are doing, so this one should be
 // called parseSellerDetails
 async function parseSellerDetail($, request) {
-    console.log(request);
     const sellerDetailsUrl = String(request.url).replace(
         "/dp/",
         "/gp/offer-listing/"
     );
-    console.log(sellerDetailsUrl);
     const item = await extractInfo($);
     request.url = sellerDetailsUrl;
-    console.log(request);
+    request.loaddedUrl = sellerDetailsUrl;
+    request.uniqueKeyuni = sellerDetailsUrl;
     const sellers = await extractSellers($, request);
     item.productUrl = request.url;
     item.sellers = sellers;
